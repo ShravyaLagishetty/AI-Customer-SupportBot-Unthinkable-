@@ -98,7 +98,7 @@ ai-customer-support-bot/
 
 
 ---
-```
+
 ## Setup Instructions
 
 ### Backend (FastAPI)
@@ -178,8 +178,7 @@ Security
    API keys and database secrets excluded via .gitignore.
    HTTPS ready for deployment.
 ---
-```
-```
+
 Git Commands Quick Reference
 git init
 git remote add origin https://github.com/<username>/ai-customer-support-bot.git
@@ -188,8 +187,7 @@ git commit -m "Initial commit - AI Customer Support Bot"
 git branch -M main
 git push -u origin main
 ---
-```
-```
+
 Demo Video link:
 https://drive.google.com/file/d/13CtkXjnQgKmp0SSI_KL-OpnAQucFk6ur/view?usp=sharing
 
