@@ -66,27 +66,36 @@ Copy code
 ## Project Structure
 
 ai-customer-support-bot/
+│
 ├── backend/
-│ ├── app/
-│ │ ├── main.py
-│ │ ├── llm_adapter.py
-│ │ └── worker.py
-│ ├── requirements.txt
-│ └── .env
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── worker.py
+│   ├── requirements.txt
+│   └── .env.example
 │
 ├── frontend/
-│ ├── chat-ui/
-│ │ ├── src/App.jsx
-│ │ ├── package.json
-│ │ ├── tailwind.config.js
-│ │ └── vite.config.js
-│ └── react-admin/ (optional dashboard)
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── api.js
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── vite.config.js
 │
+├── docs/
+│   └── architecture-diagram.png
+│
+├── docker-compose.yml
 ├── .gitignore
 └── README.md
 
-yaml
-Copy code
 
 ---
 
@@ -94,7 +103,7 @@ Copy code
 
 ### Backend (FastAPI)
 
-```bash
+bash
 cd backend
 python -m venv .venv
 .venv\Scripts\activate
@@ -112,7 +121,10 @@ Copy code
 uvicorn app.main:app --reload --port 8000
  Runs on http://localhost:8000
 
-### **Frontend (Chat UI)**
+
+---
+
+### Frontend (Chat UI)
 bash
 Copy code
 cd ../frontend/chat-ui
@@ -134,7 +146,9 @@ Copy code
 cd backend
 .venv\Scripts\activate
 python -m celery -A worker.cel worker --pool=solo --loglevel=info
-  How It Works
+
+---
+### How It Works
 User clicks New Chat → backend creates session.
 
 Message sent → FastAPI builds prompt + context → calls OpenRouter LLM.
@@ -145,7 +159,9 @@ Response displayed instantly with animation.
 
 Escalation auto-triggers if low confidence or user clicks Escalate.
 
- API Endpoints
+---
+
+### API Endpoints
 Method	Endpoint	Description
 POST	/api/v1/sessions	Create new chat session
 POST	/api/v1/sessions/{id}/message	Send message + get AI reply
@@ -153,16 +169,18 @@ POST	/api/v1/sessions/{id}/escalate	Escalate current session
 POST	/api/v1/feedback	Submit feedback
 GET	/api/v1/metrics	Retrieve admin metrics
 
+---
+
 Swagger Docs → http://localhost:8000/docs
 
-
- Security
+--- 
+### Security
 Environment variables stored in .env (not pushed to Git).
 
 API keys and database secrets excluded via .gitignore.
 
 HTTPS ready for deployment.
-
+---
 ** Git Commands Quick Reference
 git init
 git remote add origin https://github.com/<username>/ai-customer-support-bot.git
@@ -170,8 +188,8 @@ git add .
 git commit -m "Initial commit - AI Customer Support Bot"
 git branch -M main
 git push -u origin main
-
-Demo Video link:
+---
+### Demo Video link:
 https://drive.google.com/file/d/13CtkXjnQgKmp0SSI_KL-OpnAQucFk6ur/view?usp=sharing
 
 
