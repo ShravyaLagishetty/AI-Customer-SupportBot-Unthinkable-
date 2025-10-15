@@ -99,54 +99,78 @@ ai-customer-support-bot/
 
 ---
 
-## Setup Instructions
+````
+##  Setup Instructions
 
-### Backend (FastAPI)
+---
 
-bash
+###  Backend (FastAPI)
+
+```bash
 cd backend
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-Create a .env file inside backend/:
+````
 
-Copy code
+Create a `.env` file inside the `backend/` folder:
+
+```ini
 AI_API_KEY=sk-or-v1-your-openrouter-api-key
 MODEL_PROVIDER=openrouter
-Run backend:
+```
 
-bash
-Copy code
+Run the backend:
+
+```bash
 uvicorn app.main:app --reload --port 8000
- Runs on http://localhost:8000
+```
 
+ Runs on **[http://localhost:8000](http://localhost:8000)**
 
 ---
 
-### Frontend (Chat UI)
-bash
-Copy code
+###  Frontend (Chat UI)
+
+```bash
 cd ../frontend/chat-ui
 npm install
 npm run dev
- Open http://localhost:5173 in browser.
+```
 
- Redis & Celery (optional for memory + background tasks)
-Start Redis (Windows example):
+ Open **[http://localhost:5173](http://localhost:5173)** in your browser.
 
-bash
-Copy code
+---
+
+###  Redis & Celery (Optional – for memory & background tasks)
+
+**Start Redis (Windows example):**
+
+```bash
 cd "C:\Users\<YourUser>\Downloads\Redis-x64-3.2.100"
 .\redis-server.exe
-Start Celery worker:
+```
 
-bash
-Copy code
+**Start Celery worker:**
+
+```bash
 cd backend
 .venv\Scripts\activate
 python -m celery -A worker.cel worker --pool=solo --loglevel=info
+```
 
 ---
+
+ Once all services are running:
+
+* Backend → **[http://localhost:8000](http://localhost:8000)**
+* Frontend → **[http://localhost:5173](http://localhost:5173)**
+* Redis & Celery → handle memory + async task processing automatically
+
+---
+
+```
+
 ### How It Works
 User clicks New Chat → backend creates session.
 
