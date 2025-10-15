@@ -31,7 +31,7 @@ The system answers FAQs, maintains chat context, and escalates unresolved querie
 
 ---
 
-## 🧠 System Architecture
+##  System Architecture
 
 Frontend (React + Tailwind + Vite)
 │
@@ -110,17 +110,17 @@ Run backend:
 bash
 Copy code
 uvicorn app.main:app --reload --port 8000
-👉 Runs on http://localhost:8000
+ Runs on http://localhost:8000
 
-Frontend (Chat UI)
+### **Frontend (Chat UI)**
 bash
 Copy code
 cd ../frontend/chat-ui
 npm install
 npm run dev
-👉 Open http://localhost:5173 in browser.
+ Open http://localhost:5173 in browser.
 
-⚡ Redis & Celery (optional for memory + background tasks)
+ Redis & Celery (optional for memory + background tasks)
 Start Redis (Windows example):
 
 bash
