@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///./data/dev.db}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - ENV=dev
+      - ADMIN_API_KEY=${ADMIN_API_KEY:-admin-secret-key}
+      - JWT_SECRET=${JWT_SECRET:-change_this_secret}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+  worker:
+    build: ./backend
+    command: celery -A worker.cel worker --loglevel=info
+    environment:
+      - CELERY_BROKER=${CELERY_BROKER:-redis://redis:6379/0}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///./data/dev.db}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - redis
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ai_support
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

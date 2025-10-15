@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI Customer Support — Demo</title>
+  <style>
+    body { font-family: Arial; max-width: 800px; margin: 2rem auto; padding: 1rem; }
+    #chat { border: 1px solid #ddd; padding: 1rem; height: 400px; overflow-y: auto; }
+    .msg { margin-bottom: 0.8rem; white-space: pre-wrap; }
+    .role-user { color: #111; }
+    .role-assistant { color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>AI Customer Support — Demo</h1>
+  <div>
+    <label>Session ID: <input id="session" style="width:420px"/></label>
+    <button id="new">New Session</button>
+  </div>
+  <div id="chat" aria-live="polite"></div>
+  <div style="margin-top:1rem;">
+    <input id="text" style="width:70%" placeholder="Type your message"/>
+    <button id="send">Send</button>
+    <button id="escalate">Escalate to human</button>
+  </div>
+
+<script>
+const apiBase = "http://localhost:8000/api/v1";
+async function newSession(){
+  const res = await fetch(apiBase + "/sessions", {method:"POST"});
+  const j = await res.json();
+  document.getElementById("session").value = j.session_id;
+  document.getElementById("chat").innerHTML = "";
+}
+async function send(){
+  const sid = document.getElementById("session").value.trim().replace(/"/g,"");
+  if(!sid){ alert("Create or paste a session id first"); return; }
+  const text = document.getElementById("text").value;
+  if(!text) return;
+  appendMsg("user", text);
+  const res = await fetch(apiBase + "/sessions/" + sid + "/message", {
+    method:"POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({text})
+  });
+  const j = await res.json();
+  appendMsg("assistant", j.text + (j.suggested_action ? ("\n[suggested_action: "+ JSON.stringify(j.suggested_action)+"]") : ""));
+  document.getElementById("text").value = "";
+}
+function appendMsg(role, content){
+  const d = document.getElementById("chat");
+  const el = document.createElement("div");
+  el.className = "msg role-" + role;
+  el.textContent = role.toUpperCase() + ": " + content;
+  d.appendChild(el);
+  d.scrollTop = d.scrollHeight;
+}
+async function escalate(){
+  const sid = document.getElementById("session").value.trim().replace(/"/g,"");
+  if(!sid){ alert("Create or paste a session id first"); return; }
+  await fetch(apiBase + "/sessions/" + sid + "/escalate", {method:"POST"});
+  appendMsg("system", "Session escalated (simulated).");
+}
+document.getElementById("new").addEventListener("click", newSession);
+document.getElementById("send").addEventListener("click", send);
+document.getElementById("escalate").addEventListener("click", escalate);
+</script>
+</body>
+</html>
