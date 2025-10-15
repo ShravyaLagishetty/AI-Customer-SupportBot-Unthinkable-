@@ -98,7 +98,7 @@ ai-customer-support-bot/
 
 
 ---
-
+```
 ## Setup Instructions
 
 ### Backend (FastAPI)
@@ -110,7 +110,6 @@ python -m venv .venv
 pip install -r requirements.txt
 Create a .env file inside backend/:
 
-ini
 Copy code
 AI_API_KEY=sk-or-v1-your-openrouter-api-key
 MODEL_PROVIDER=openrouter
@@ -179,6 +178,8 @@ Security
    API keys and database secrets excluded via .gitignore.
    HTTPS ready for deployment.
 ---
+```
+```
 Git Commands Quick Reference
 git init
 git remote add origin https://github.com/<username>/ai-customer-support-bot.git
@@ -187,6 +188,8 @@ git commit -m "Initial commit - AI Customer Support Bot"
 git branch -M main
 git push -u origin main
 ---
+```
+```
 Demo Video link:
 https://drive.google.com/file/d/13CtkXjnQgKmp0SSI_KL-OpnAQucFk6ur/view?usp=sharing
 
