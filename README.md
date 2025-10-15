@@ -171,10 +171,7 @@ git commit -m "Initial commit - AI Customer Support Bot"
 git branch -M main
 git push -u origin main
 
-
-<<<<<<< HEAD
 Demo Video link:
 https://drive.google.com/file/d/13CtkXjnQgKmp0SSI_KL-OpnAQucFk6ur/view?usp=sharing
-=======
 
->>>>>>> 31e5f8f (Updated README.md file)
+
