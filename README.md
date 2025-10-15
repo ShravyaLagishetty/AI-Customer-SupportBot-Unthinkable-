@@ -64,7 +64,7 @@ Copy code
 ---
 
 ## Project Structure
-
+```bash
 ai-customer-support-bot/
 │
 ├── backend/
@@ -174,14 +174,12 @@ GET	/api/v1/metrics	Retrieve admin metrics
 Swagger Docs → http://localhost:8000/docs
 
 --- 
-### Security
-Environment variables stored in .env (not pushed to Git).
-
-API keys and database secrets excluded via .gitignore.
-
-HTTPS ready for deployment.
+Security
+   Environment variables stored in .env (not pushed to Git).
+   API keys and database secrets excluded via .gitignore.
+   HTTPS ready for deployment.
 ---
-** Git Commands Quick Reference
+Git Commands Quick Reference
 git init
 git remote add origin https://github.com/<username>/ai-customer-support-bot.git
 git add .
@@ -189,7 +187,7 @@ git commit -m "Initial commit - AI Customer Support Bot"
 git branch -M main
 git push -u origin main
 ---
-### Demo Video link:
+Demo Video link:
 https://drive.google.com/file/d/13CtkXjnQgKmp0SSI_KL-OpnAQucFk6ur/view?usp=sharing
 
 
